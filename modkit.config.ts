@@ -1,13 +1,12 @@
 import { defineConfig } from "@iringo/modkit";
-import { pluginSurge } from "@iringo/modkit/plugins/surge";
-import { pluginLoon } from "@iringo/modkit/plugins/loon";
-import { pluginDts } from "@iringo/modkit/plugins/dts";
-import { pluginStash } from "@iringo/modkit/plugins/stash";
-import { pluginBoxJs } from "@iringo/modkit/plugins/boxjs";
-import { pluginNodePolyfill } from "@rsbuild/plugin-node-polyfill";
 import { pluginEgern } from "@iringo/modkit-plugin-egern";
+import { pluginBoxJs } from "@iringo/modkit/plugins/boxjs";
+import { pluginDts } from "@iringo/modkit/plugins/dts";
+import { pluginLoon } from "@iringo/modkit/plugins/loon";
+import { pluginStash } from "@iringo/modkit/plugins/stash";
+import { pluginSurge } from "@iringo/modkit/plugins/surge";
+import { pluginNodePolyfill } from "@rsbuild/plugin-node-polyfill";
 import pkg from "./package.json";
-import rspack from "@rspack/core";
 
 export default defineConfig({
   source: {
@@ -123,6 +122,21 @@ export default defineConfig({
   },
   output: {
     assetPrefix: `https://github.com/NSRingo/News/releases/download/v${pkg.version}`,
+    banners: [
+      {
+        banner: `console.log('Version: ${pkg.version}');`,
+        raw: true,
+      },{
+        banner: "console.log('[file]');",
+        raw: true,
+      },{
+        banner: `console.log('${pkg.displayName}');`,
+        raw: true,
+      },
+      {
+        banner: pkg.homepage,
+      }
+    ]
   },
   tools: {
     rsbuild: {
@@ -136,23 +150,6 @@ export default defineConfig({
           "tough-cookie": false,
         },
       },
-      plugins: [
-        new rspack.BannerPlugin({
-          banner: `console.log('Version: ${pkg.version}');`,
-          raw: true,
-        }),
-        new rspack.BannerPlugin({
-          banner: "console.log('[file]');",
-          raw: true,
-        }),
-        new rspack.BannerPlugin({
-          banner: `console.log('${pkg.displayName}');`,
-          raw: true,
-        }),
-        new rspack.BannerPlugin({
-          banner: pkg.homepage,
-        }),
-      ],
     },
   },
   plugins: [
