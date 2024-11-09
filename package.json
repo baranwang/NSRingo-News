@@ -29,10 +29,8 @@
 		"example": "example"
 	},
 	"scripts": {
-		"serve": "webpack serve",
+		"dev": "modkit dev",
 		"build": "modkit build",
-		"build:dev": "rspack build -c rspack.dev.config.js --mode=development",
-		"build:args": "arguments-builder build",
 		"dts": "modkit dts"
 	},
 	"browserslist": [
